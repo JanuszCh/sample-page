@@ -92,20 +92,24 @@
             flex-direction: column;
             align-items: center;
         }
-        .input-task {
-            @extend %input;
-            margin-right: 23px;
-            flex-grow: 2;
-            @media #{$phone} {
-                margin: 0;
-                text-align: center;
-                width: 100%;
+        .task-input-form {
+            width: 100%;
+            display: flex;
+            .input-task {
+                @extend %input;
+                margin-right: 23px;
+                flex-grow: 2;
+                @media #{$phone} {
+                    margin: 0;
+                    text-align: center;
+                    width: 100%;
+                }
             }
-        }
-        .input-date {
-            @extend %input;
-            width: 150px;
-            text-align: center;
+            .input-date {
+                @extend %input;
+                width: 150px;
+                text-align: center;
+            }
         }
     }
     .task-line {

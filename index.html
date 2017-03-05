@@ -25,11 +25,15 @@
             </header>
             <div class="task-input-container">
                 <div class="checkbox-container">
-                    <input type="checkbox" class="checkbox" id="mark-all-tasks" />
-                    <label for="mark-all-tasks" class="checkbox-label"></label>
+                    <form>
+                        <input type="checkbox" name="all-task-completed" class="checkbox" id="mark-all-tasks" />
+                        <label for="mark-all-tasks" class="checkbox-label"></label>
+                    </form>
                 </div>
-                <input type="text" name="task-text" id="task-text" class="input-task" placeholder="Place your task here" />
-                <input type="text" name="task-date" id="task-date" class="input-date" />
+                <form class="task-input-form">
+                    <input type="text" name="task-text" id="task-text" class="input-task" placeholder="Place your task here" />
+                    <input type="text" name="task-date" id="task-date" class="input-date" />
+                </form>
             </div>
             <ul id="pirmary-tasks-list"></ul>
         </section>
@@ -49,7 +53,9 @@
                 <h1 class="notes-section-title">Notes</h1>
             </header>
             <div class="notes-textarea-container">
-                <textarea class="notes-textarea"></textarea>
+                <form>
+                    <textarea name="notes" class="notes-textarea"></textarea>
+                </form>
             </div>
         </section>
     </section>
@@ -57,7 +63,7 @@
     <div id="modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <img src="dist/images/logo.png" alt="app_logo" class="modal-header-logo"/>
+                <img src="dist/images/logo.png" alt="app_logo" class="modal-header-logo" />
             </div>
             <div class="modal-body">
                 <div class="modal-text">The text of the task should contain from 3 to 100 characters</div>
@@ -67,7 +73,7 @@
     </div>
 
     <script src="dist/js/app.js"></script>
-    
+
 </body>
 
 </html>

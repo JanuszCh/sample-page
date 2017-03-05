@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function createTaskLine(task) {
-        let taskLine = '<li class="js-task-line task-line"><div class="checkbox-container"><input type="checkbox" id="' + task.id + '" class="js-checkbox-completed checkbox"></input><label class="checkbox-label" for="' + task.id + '"></label></div><span class="task-line-text">' + task.taskText + '</span><span class="task-line-date">' + task.taskDate + '</span></li>';
+        let taskLine = '<li class="js-task-line task-line"><div class="checkbox-container"><form><input type="checkbox" name="task-completed" id="' + task.id + '" class="js-checkbox-completed checkbox"></input><label class="checkbox-label" for="' + task.id + '"></label></form></div><span class="task-line-text">' + task.taskText + '</span><span class="task-line-date">' + task.taskDate + '</span></li>';
 
         return taskLine;
     }
