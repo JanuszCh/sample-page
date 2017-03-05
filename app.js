@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
 
     const taskTextInput = document.getElementById('task-text'),
         taskDateInput = document.getElementById('task-date'),
@@ -13,24 +13,25 @@ document.addEventListener("DOMContentLoaded", function () {
         clodeModalBtn = document.getElementById('modal-btn');
 
     let tasks = JSON.parse(localStorage.getItem("tasks")) || [],
-        NewTask = function (taskText, taskDate, taskPriority) {
-            this.taskText = taskText;
-            this.taskDate = taskDate;
-            this.isCompleted = false;
-            this.id = Date.now();
-            this.taskPriority = taskPriority;
-        },
         priority = '';
 
+    function Task(taskText, taskDate, taskPriority) {
+        this.taskText = taskText;
+        this.taskDate = taskDate;
+        this.isCompleted = false;
+        this.id = Date.now();
+        this.taskPriority = taskPriority;
+    }
+
     function getTaskIndex(task) {
-        let id = task.parentElement.parentElement.dataset.id;
+        let id = task.id;
 
         return tasks.map((singleTask) => {
             return singleTask.id;
         }).indexOf(parseInt(id));
     }
 
-    function isTasksValid() {
+    function areTasksValidToRender() {
         return tasks.length > 0;
     }
 
@@ -43,24 +44,16 @@ document.addEventListener("DOMContentLoaded", function () {
         saveTasks(tasks);
     }
 
-    function isAllTasksCompleted() {
-        let valid = false,
-            falseIndex = 0;
-
-        if (isTasksValid()) {
-            falseIndex = tasks.map((singleTask) => {
-                return singleTask.isCompleted;
-            }).indexOf(false);
+    function areAllTasksCompleted() {
+        if (areTasksValidToRender()) {
+            return tasks.every((task) => {
+                return task.isCompleted;
+            });
         }
-        if (falseIndex < 0) {
-            valid = true;
-        }
-
-        return valid;
     }
 
     function toogleMarkAllTasksBtn() {
-        if (isAllTasksCompleted()) {
+        if (areAllTasksCompleted()) {
             markAllTasksBtn.checked = true;
         } else {
             markAllTasksBtn.checked = false;
@@ -75,50 +68,35 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function markTaskAsCompleted(task, checkBox) {
-        if (task.isCompleted) {
-            checkBox.checked = true;
+    function markTaskAsCompleted(tasks) {
+        for (let task of tasks) {
+            if (task.isCompleted) {
+                let checkbox = document.getElementById(task.id);
+                checkbox.checked = true;
+            }
         }
+
     }
 
     function createTaskLine(task) {
-        let taskLine = document.createElement('li'),
-            checkBoxContainer = document.createElement('div'),
-            checkBox = document.createElement('input'),
-            checkBoxLabel = document.createElement('label'),
-            taskTextSpan = document.createElement('span'),
-            taskDateSpan = document.createElement('span');
-
-        checkBoxContainer.classList.add('checkbox-container');
-        checkBox.type = "checkbox";
-        checkBox.classList.add('js-checkbox-completed', 'checkbox');
-        checkBox.id = task.id;
-        checkBoxLabel.setAttribute('for', task.id);
-        checkBoxLabel.classList.add('checkbox-label');
-        taskTextSpan.classList.add('task-line-text');
-        taskDateSpan.classList.add('task-line-date');
-        checkBoxContainer.appendChild(checkBox);
-        checkBoxContainer.appendChild(checkBoxLabel);
-        taskLine.appendChild(checkBoxContainer);
-        taskLine.appendChild(taskTextSpan);
-        taskLine.appendChild(taskDateSpan);
-        taskTextSpan.innerText = task.taskText;
-        taskDateSpan.innerText = task.taskDate;
-        taskLine.classList.add('js-task-line', 'task-line');
-        taskLine.dataset.id = task.id;
-        markTaskAsCompleted(task, checkBox);
+        let taskLine = '<li class="js-task-line task-line"><div class="checkbox-container"><input type="checkbox" id="' + task.id + '" class="js-checkbox-completed checkbox"></input><label class="checkbox-label" for="' + task.id + '"></label></div><span class="task-line-text">' + task.taskText + '</span><span class="task-line-date">' + task.taskDate + '</span></li>';
 
         return taskLine;
     }
 
     function renderTasks(tasks) {
-        if (isTasksValid()) {
+        if (areTasksValidToRender()) {
             primaryTasksList.innerHTML = '';
             secondaryTasksList.innerHTML = '';
 
+            let primaryList = '',
+                secondaryList = '';
             for (let task of tasks) {
-                task.taskPriority === 'primary' ? primaryTasksList.appendChild(createTaskLine(task)) : secondaryTasksList.appendChild(createTaskLine(task));
+                task.taskPriority === 'primary' ? primaryList += createTaskLine(task) : secondaryList += createTaskLine(task);
             }
+            primaryTasksList.innerHTML = primaryList;
+            secondaryTasksList.innerHTML = secondaryList;
+            markTaskAsCompleted(tasks);
             addEventsToCheckboxes();
         }
     }
@@ -133,8 +111,11 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("tasks", JSON.stringify(tasks));
     }
 
-    function isTaskValid() {
-        return taskTextInput.value.length > 2 && taskTextInput.value.length < 100;
+    function isTaskTextInvalid() {
+        let minLength = 3,
+            maxLength = 100;
+
+        return taskTextInput.value.trim().length < minLength || taskTextInput.value.trim().length > maxLength;
     }
 
     function showModal() {
@@ -143,25 +124,27 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function closeModal() {
+        let modalHidingTime = 300;
+
         modal.classList.add('closeModal');
         setTimeout(() => {
             modal.style.display = 'none';
-        }, 300);
+        }, modalHidingTime);
     }
 
     function addTask(e) {
-        taskDateInput.value = taskDateInput.value || new Date().toLocaleDateString();
-        if (isTaskValid()) {
-            e.target.id === 'add-primary-task-btn' ? priority = 'primary' : priority = 'secondary';
-            let task = new NewTask(taskTextInput.value, taskDateInput.value, priority);
-            tasks.push(task);
-            saveTasks(tasks);
-            renderTasks(tasks);
-            clearInputState();
-            toogleMarkAllTasksBtn();
-        } else {
+        if (isTaskTextInvalid()) {
             showModal();
+            return;
         }
+        taskDateInput.value = taskDateInput.value || new Date().toLocaleDateString();
+        e.target.id === 'add-primary-task-btn' ? priority = 'primary' : priority = 'secondary';
+        let task = new Task(taskTextInput.value, taskDateInput.value, priority);
+        tasks.push(task);
+        saveTasks(tasks);
+        renderTasks(tasks);
+        clearInputState();
+        toogleMarkAllTasksBtn();
     }
 
     function removeTasksFromStorage(priority) {
@@ -187,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function () {
         toogleMarkAllTasksBtn();
     }
 
-    function markAllTasks() {
+    function markAllTasksAsCompleted() {
         if (this.checked) {
             for (let task of tasks) {
                 task.isCompleted = true;
@@ -206,7 +189,7 @@ document.addEventListener("DOMContentLoaded", function () {
     clearSecondaryListBtn.addEventListener('click', deleteTasks);
     addSecodnaryTaskBtn.addEventListener('click', addTask);
     clodeModalBtn.addEventListener('click', closeModal);
-    markAllTasksBtn.addEventListener('click', markAllTasks);
+    markAllTasksBtn.addEventListener('click', markAllTasksAsCompleted);
     renderTasks(tasks);
     clearInputState();
     toogleMarkAllTasksBtn();
