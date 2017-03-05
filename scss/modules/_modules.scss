@@ -1,0 +1,16 @@
+%btn {
+    outline: none;
+    border: none;
+    height: 52px;
+    color: #ffffff;
+}
+
+%input {
+    border: none;
+    border-bottom: 1px solid #bfbfbf;
+    outline: none;
+    height: 47px;
+    &:focus {
+    border-bottom: 1px solid $checkboxColor;
+    }
+}

@@ -1,0 +1,204 @@
+.logo {
+    max-width: 1465px;
+    margin: 0 auto;
+    padding: 47px 40px;
+    @media #{$desktop} {
+        width: 95%;
+    }
+    @media #{$tablet} {
+        padding: 25px 40px;
+    }
+    @media #{$phone} {
+        padding: 15px 40px;
+    }
+}
+
+.app {
+    max-width: 1465px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    -webkit-box-shadow: 0 2px 5px 2px #dadada;
+    -moz-box-shadow: 0 2px 5px 2px #dadada;
+    box-shadow: 0 2px 5px 2px #dadada;
+    margin: 0 auto 50px auto;
+    padding: 47px;
+    @media #{$desktop} {
+        width: 95%;
+    }
+    .dividing-line {
+        margin: 30px -47px 30px -47px;
+    }
+}
+
+.primary-section,
+.secondary-section,
+.notes-section {
+    &-header {
+        min-height: 52px;
+        width: 100%;
+        padding-left: 23px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        @media #{$tablet} {
+            flex-direction: column;
+            align-items: center;
+        }
+        @media #{$phone} {
+            padding: 0;
+        }
+        .buttons-container {
+            display: flex;
+            @media #{$tablet} {
+                margin: 0;
+            }
+            .clear-btn {
+                @extend %btn;
+                width: 140px;
+                background-color: $clearTaskBtnColor;
+                font-size: 16px;
+                margin-right: 42px;
+                border-radius: 50px;
+                &:hover {
+                    border: 2px solid $clearTaskBtnColor;
+                    background-color: #ffffff;
+                    color: $clearTaskBtnColor;
+                }
+            }
+            .add-btn {
+                @extend %btn;
+                width: 52px;
+                background-color: $addTaskBtnColor;
+                font-size: 30px;
+                border-radius: 100%;
+                &:hover {
+                    border: 2px solid $addTaskBtnColor;
+                    background-color: #ffffff;
+                    color: $addTaskBtnColor;
+                }
+            }
+        }
+    }
+    &-title {
+        font-size: 20px;
+        text-transform: uppercase;
+        display: inline-block;
+        line-height: 52px;
+    }
+    .task-input-container {
+        margin-bottom: 20px;
+        display: flex;
+        @media #{$phone} {
+            flex-direction: column;
+            align-items: center;
+        }
+        .input-task {
+            @extend %input;
+            margin-right: 23px;
+            flex-grow: 2;
+            @media #{$phone} {
+                margin: 0;
+                text-align: center;
+                width: 100%;
+            }
+        }
+        .input-date {
+            @extend %input;
+            width: 150px;
+            text-align: center;
+        }
+    }
+    .task-line {
+        min-height: 95px;
+        overflow: hidden;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 10px 0;
+        &:hover {
+            background-color: $taskLineHoverColor;
+            border-radius: 10px;
+            .task-line-date {
+                color: #000000;
+            }
+        }
+        @media #{$phone} {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        &-date {
+            margin: 0 35px 0 auto;
+            color: #bfbfbf;
+            @media #{$phone} {
+                margin: 10px 0;
+            }
+        }
+        &-text {
+            margin-right: 23px;
+            @media #{$phone} {
+                margin: 10px 0;
+                text-align: center;
+            }
+        }
+    }
+    .checkbox-container {
+        min-width: 47px;
+        height: 47px;
+        border-radius: 50px;
+        background-color: #ffffff;
+        outline: none;
+        position: relative;
+        margin: 0 23px;
+        .checkbox {
+            visibility: hidden;
+            &:checked+.checkbox-label {
+                background-color: $checkboxColor;
+                &:after {
+                    content: '\2714';
+                    color: #ffffff;
+                    font-size: 30px;
+                    line-height: 47px;
+                    position: absolute;
+                    left: 10px;
+                }
+            }
+        }
+        .checkbox-label {
+            display: block;
+            width: 47px;
+            height: 47px;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1;
+            border: 1px solid $checkboxBorderColor;
+            background-color: #ffffff;
+            position: absolute;
+            top: 0;
+            left: 0;
+            &:hover {
+                border: 2px solid $checkboxColor;
+            }
+        }
+    }
+    .notes-textarea-container {
+        width: 100%;
+        padding: 0 23px;
+        @media #{$phone} {
+            padding: 0;
+        }
+        .notes-textarea {
+            display: block;
+            height: 165px;
+            resize: none;
+            width: 100%;
+            border: 1px solid #bfbfbf;
+            border-radius: 10px;
+            outline: none;
+            padding: 10px;
+            &:focus {
+                border-color: #6161b4;
+            }
+        }
+    }
+}

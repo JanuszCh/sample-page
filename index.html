@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Todo List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Todo list. Save your daily tasks in order not to miss anything.">
+    <meta name="keywords" content="to do, todo, list">
+    <link rel="stylesheet" href="dist/css/style.css">
+</head>
+
+<body>
+    <header class="logo">
+        <img src="dist/images/logo.png" alt="app_logo" />
+    </header>
+    <section class="app">
+        <section class="primary-section">
+            <header class="primary-section-header">
+                <h1 class="primary-section-title">Primary tasks</h1>
+                <div class="buttons-container">
+                    <button type="button" id="clear-primary-list-btn" class="clear-btn">Clear list</button>
+                    <button type="button" id="add-primary-task-btn" class="add-btn">+</button>
+                </div>
+            </header>
+            <div class="task-input-container">
+                <div class="checkbox-container">
+                    <input type="checkbox" class="checkbox" id="mark-all-tasks" />
+                    <label for="mark-all-tasks" class="checkbox-label"></label>
+                </div>
+                <input type="text" name="task-text" id="task-text" class="input-task" placeholder="Place your task here" />
+                <input type="text" name="task-date" id="task-date" class="input-date" />
+            </div>
+            <ul id="pirmary-tasks-list"></ul>
+        </section>
+        <hr class="dividing-line" />
+        <section class="secondary-section">
+            <header class="secondary-section-header">
+                <h1 class="secondary-section-title">Secondary tasks</h1>
+                <div class="buttons-container">
+                    <button type="button" id="clear-secondary-list-btn" class="clear-btn">Clear list</button>
+                    <button type="button" id="add-secondary-task-btn" class="add-btn">+</button>
+                </div>
+            </header>
+            <ul id="secondary-tasks-list"></ul>
+        </section>
+        <section class="notes-section">
+            <header class="notes-section-header">
+                <h1 class="notes-section-title">Notes</h1>
+            </header>
+            <div class="notes-textarea-container">
+                <textarea class="notes-textarea"></textarea>
+            </div>
+        </section>
+    </section>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img src="dist/images/logo.png" alt="app_logo" class="modal-header-logo"/>
+            </div>
+            <div class="modal-body">
+                <div class="modal-text">The text of the task should contain from 3 to 100 characters</div>
+                <button type="button" id="modal-btn" class="modal-btn">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="dist/js/app.js"></script>
+    
+</body>
+
+</html>
