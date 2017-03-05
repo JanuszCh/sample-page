@@ -10,49 +10,52 @@
     overflow: auto;
     background-color: #000000;
     background-color: rgba(0, 0, 0, 0.6);
-    &-content {
-        position: relative;
-        background-color: #ffffff;
-        margin: auto;
-        padding: 0;
-        width: 70%;
-        max-width: 700px;
-        border-radius: 10px;
-        -webkit-animation-name: slideDown;
-        -webkit-animation-duration: 0.3s;
-        -moz-animation-name: slideDown;
-        -moz-animation-duration: 0.3s;
-        animation-name: slideDown;
-        animation-duration: 0.3s;
-        .modal-header {
-            display: flex;
-            align-items: center;
-            height: 75px;
-            padding: 0 20px;
-            background-color: #f7f7f7;
-            border-radius: 10px 10px 0 0;
-            &-logo {
-                height: 55px;
-            }
-        }
-        .modal-body {
-            padding: 20px;
-            font-size: 16px;
-            text-align: center;
-            .modal-btn {
-                @extend %btn;
-                width: 100px;
-                height: 40px;
-                margin: 20px 15px 0 15px;
-                font-weight: 800;
-                background-color: $logoColor;
-                border-radius: 50px;
-                &:hover {
-                    color: $logoColor;
-                    background-color: #ffffff;
-                    border: 2px solid $logoColor;
-                }
-            }
+}
+
+.modal-content {
+    position: relative;
+    background-color: #ffffff;
+    margin: auto;
+    padding: 0;
+    width: 70%;
+    max-width: 700px;
+    border-radius: 10px;
+    -webkit-animation-name: slideDown;
+    -webkit-animation-duration: 0.3s;
+    -moz-animation-name: slideDown;
+    -moz-animation-duration: 0.3s;
+    animation-name: slideDown;
+    animation-duration: 0.3s;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    height: 75px;
+    padding: 0 20px;
+    background-color: #f7f7f7;
+    border-radius: 10px 10px 0 0;
+    &-logo {
+        height: 55px;
+    }
+}
+
+.modal-body {
+    padding: 20px;
+    font-size: 16px;
+    text-align: center;
+    .modal-btn {
+        @extend %btn;
+        width: 100px;
+        height: 40px;
+        margin: 20px 15px 0 15px;
+        font-weight: 800;
+        background-color: $logoColor;
+        border-radius: 50px;
+        &:hover {
+            color: $logoColor;
+            background-color: #ffffff;
+            border: 2px solid $logoColor;
         }
     }
 }

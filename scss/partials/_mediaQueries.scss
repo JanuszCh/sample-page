@@ -1,0 +1,64 @@
+@media #{$desktop} {
+    .logo-container,
+    .app {
+        width: 95%;
+    }
+}
+
+@media #{$tablet} {
+    .logo-container {
+        padding: 25px 40px;
+    }
+    .primary-section,
+    .secondary-section,
+    .notes-section {
+        &-header {
+            flex-direction: column;
+            align-items: center;
+        }
+        .buttons-container {
+            margin: 0;
+        }
+    }
+}
+
+@media #{$phone} {
+    .logo-container {
+        padding: 15px 40px;
+    }
+    .primary-section,
+    .secondary-section,
+    .notes-section {
+        &-header {
+            padding: 0;
+        }
+        .task-input-container {
+            flex-direction: column;
+            align-items: center;
+        }
+        .task-input-form {
+            flex-direction: column;
+            align-items: center;
+            .input-task {
+                margin: 0;
+                text-align: center;
+                width: 100%;
+            }
+        }
+        .task-line {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            &-date {
+                margin: 10px 0;
+            }
+            &-text {
+                margin: 10px 0;
+                text-align: center;
+            }
+        }
+        .notes-textarea-container {
+            padding: 0;
+        }
+    }
+}
